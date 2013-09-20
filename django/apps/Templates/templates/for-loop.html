@@ -1,0 +1,13 @@
+{% extends "base-template.html" %}
+
+{% block item_list %}
+<ul>
+{% for string in string_list %}
+  <li>{{ string }}</li>
+{% endfor%}
+</ul>
+{% endblock %}
+
+{% block page_title %}
+{{ title }}
+{% endblock %}
