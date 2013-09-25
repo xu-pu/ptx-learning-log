@@ -12,7 +12,7 @@ void setup() {
 }
 
 void loop() {
-  if (digitalRead(switchPin) == LOW) {
+  if (digitalRead(switchPin) == HIGH) {
     digitalWrite(ledPin, HIGH);
   }			
   else {
