@@ -60,11 +60,9 @@ require.config({
 
 
 require([
-    'views/sidebar',
-    'views/container'
-], function (SidebarView, ContainerView) {
+    'app'
+], function (App) {
     
-    var sidebar = SidebarView;
+    App.initialize();
 
-    var content = ContainerView;
 }); 

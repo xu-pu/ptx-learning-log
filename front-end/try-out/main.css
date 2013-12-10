@@ -41,8 +41,26 @@ body {
 
 /*=======================================================================*/
 
-.grid-container {
+.stream {
+    margin : 0;
+    padding : 0;
+    padding-bottom : 5px;
+    border : 0;
+    height : 100%;
+    width : 100%;
+}
+
+.stream-body {
     position : relative;
+}
+
+.stream-more {
+    margin : 0;
+    padding : 0;
+    border : 0;
+    height : 50px;
+    width : 100%;
+    background-color : grey;
 }
 
 .grid-item {
