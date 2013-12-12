@@ -1,43 +1,76 @@
 define([
     'jquery',
+    'underscore',
     'backbone',
     'views/content/feed',
     'jqueryui',
     'wookmark'
-], function ($, Backbone, FeedView) {
+], function ($, _, Backbone, FeedView) {
+
+    'use strict';
 
     var StreamView = Backbone.View.extend({
 	
-	el: '#stream',
+	// model: StreamModel
+
+	tagName: 'div',
+
+	className: 'stream',
 	
 	events: {
-	    'click #stream-more': 'loadMore'
+	    'click .stream-more': 'loadMore'
 	},
 
 	initialize: function(){
-	    this.$body = $('#stream-body');
-	    this.$load = $('#stream-more');
+	    this.createDOM();
+	    this._feeds = [];
 
-	    this.listenTo(this.collection, 'add', this.addOne);
+	    this.listenTo(this.model.feeds, 'add', this.addOne);
+	    this.listenTo(this, 'mount', this.onMount);
 
-	    this._feeds = [];	    
-	    this.collection.fetch();
+	    if (this.model.ready){
+		this.render();
+	    }
+	    else{
+		this.model.getReady();
+	    }
+	},
+
+	onMount: function(){
+	    this.organize();
+	    this.delegateEvents();
+	},
+
+	createDOM: function(){
+	    this.$body = $('<div>').addClass('stream-body');
+	    this.$load = $('<div>')
+		.addClass('stream-more')
+		.html(_.result(this.model, 'url'));
+	    this.$el.append(this.$body);
+	    this.$el.append(this.$load);
+	},
+
+	render: function(){
+	    this.model.feeds.each(this.addOne, this);
 	},
 
 	loadMore: function(){
-	    this.collection.fetch();
+	    this.model.fetch();
 	},
 
 	addOne: function(feed){
 	    var new_feed = new FeedView({ model: feed });
 	    this._feeds.push(new_feed);
 	    this.$body.append(new_feed.$el);
+	    this.organize();
+	},
 
+	organize: function(){
 	    this.$('.grid-item').wookmark({
 	    	container: this.$body,
 	    	align: 'left',
 	    	offset: 8
-	    });	    
+	    });
 	}
 
     });

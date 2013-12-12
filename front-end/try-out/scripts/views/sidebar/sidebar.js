@@ -3,8 +3,10 @@ define([
     'underscore',
     'backbone',
     'views/sidebar/submenu',
-    'models/sidebar/menu'
-], function ($, _, Backbone, SubMenuView, MenuModel) {
+    'models/sources'
+], function ($, _, Backbone, SubMenuView, SourcesModel) {
+
+    'use strict';
 
     var SidebarView = Backbone.View.extend({
 
@@ -13,25 +15,25 @@ define([
 	className: 'sidebar',
 
 	initialize: function(){
-	    this.render_first();
+	    this.createDOM();
 	    this._submenus = [];
 	    this.listenTo(this.model, 'add', this.addSubMenu)
 	    this.model.fetch();
 	},
 	
-	render_first: function(){
+	createDOM: function(){
 	    this.$menu = $('<ul>').addClass('menu').appendTo(this.$el);
 	    return this;
 	},
 
-	addSubMenu: function(sub){
-	    var new_sub = new SubMenuView({ model: sub });
+	addSubMenu: function(source){
+	    var new_sub = new SubMenuView({ model: source });
 	    this._submenus.push(new_sub);
 	    this.$menu.append(new_sub.$el);
 	}
 
     });
 
-    return new SidebarView({ model: MenuModel });
+    return new SidebarView({ model: SourcesModel });
 
 });

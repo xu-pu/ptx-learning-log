@@ -1,20 +1,28 @@
 define([
-    'models/content/stream',
+    'backbone',
+    'models/sources',
     'views/sidebar/sidebar',
     'views/content/stream',
-], function (StreamModel, SidebarView, StreamView) {
+    'views/content/content',
+    'router'
+], function (Backbone, SourcesModel, SidebarView, StreamView, ContentView, Workspace) {
+
+    'use strict';
 
     var App = {
 
-	models: {},
+	models: {
+	    sources: SourcesModel
+	},
 
 	views: {
 	    sidebar: SidebarView,
+	    content: ContentView
 	},
 
 	initialize: function(){
-	    this.models.stream = new StreamModel();
-	    this.views.stream = new StreamView({ collection: this.models.stream });
+	    this.router = new Workspace();
+	    Backbone.history.start();
 	}
 
     };

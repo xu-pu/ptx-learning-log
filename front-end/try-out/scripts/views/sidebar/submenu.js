@@ -7,7 +7,10 @@ define([
 
     var SubMenuView = Backbone.View.extend({
 
+	// model: SourceModel
+
 	tagName: 'li',
+
 	className: 'item',
 
         events: {
@@ -15,34 +18,34 @@ define([
         },
 
         initialize: function() {
-	    this.render_first();
+	    this.createDOM();
             this.active = false;
 	    this._entries = [];
-
 	    this.listenTo(this.model, 'add', this.addEntry);
-	    
+	    this.listenTo(this.model, 'change:residue', this.render_indicator);
 	    this.model.fetch();
         },
 
-	addEntry: function(entry){
-	    var new_entry = new EntryView({ model: entry });
+
+	createDOM: function(){
+	    this.$tab = $('<a>').addClass('sidebar-tab').html(this.model.get('name')).appendTo(this.$el);
+	    this.$body = $('<ul>').addClass('sidebar-tab-body').appendTo(this.$el);
+	    this.$indicator = $('<span>')
+		.addClass('indicator')
+		.html(this.model.get('residue'))
+		.appendTo(this.$tab);
+	    this.$body.hide();
+	},
+
+	addEntry: function(stream){
+	    var new_entry = new EntryView({ model: stream });
 	    this.$body.append(new_entry.$el);
 	    this._entries.push(new_entry);
 	    this.render_indicator();
 	},
 
-	render_first: function(){
-	    this.$tab = $('<a>').addClass('sidebar-tab').html(this.model.get('name')).appendTo(this.$el);
-	    this.$body = $('<ul>').addClass('sidebar-tab-body').appendTo(this.$el);
-	    this.$indicator = $('<span>')
-		.addClass('indicator')
-		.html(this.model.getResidue())
-		.appendTo(this.$tab);
-	    this.$body.hide();
-	},
-
 	render_indicator: function(){
-	    this.$indicator.html(this.model.getResidue());
+	    this.$indicator.html(this.model.get('residue'));
 	},
 
         toggleTab: function() {
