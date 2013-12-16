@@ -10,7 +10,10 @@ define([
 
 	idAttribute: 'cid',
 	
-	defaults: { type: 1 }
+	defaults: { 
+	    type: 1,
+	    read: false
+	}
 
     });
 

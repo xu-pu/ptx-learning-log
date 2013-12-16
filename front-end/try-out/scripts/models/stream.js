@@ -24,6 +24,16 @@ define([
 	    this.feeds = new FeedsCollection();
 	    this.listenTo(this.feeds, 'all', this.passEvent);
 	    this.listenTo(this.feeds, 'add', this.addFeed);
+	    this.listenTo(this.feeds, 'change:read', this.toggleRead)
+	},
+
+	toggleRead: function(feed){
+	    if (feed.get('read')) {
+		this.set('residue', this.get('residue')-1)
+	    }
+	    else {
+		this.set('residue', this.get('residue')+1)
+	    }
 	},
 
 	addFeed: function(){
