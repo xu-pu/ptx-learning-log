@@ -27,7 +27,9 @@ define([
 
 	    this.listenTo(this.model.feeds, 'add', this.addOne);
 	    this.listenTo(this, 'mount', this.onMount);
-
+	    this.listenTo(this, 'organize', this.organize);
+	    this.listenTo(this.model, 'change:residue', this.organize);
+	    
 	    if (this.model.ready){
 		this.render();
 	    }
@@ -61,7 +63,9 @@ define([
 	addOne: function(feed){
 	    var new_feed = new FeedView({ model: feed });
 	    this._feeds.push(new_feed);
+	    new_feed.$el.hide();
 	    this.$body.append(new_feed.$el);
+	    new_feed.$el.fadeIn('slow');
 	    this.organize();
 	},
 
@@ -71,6 +75,7 @@ define([
 	    	align: 'left',
 	    	offset: 8
 	    });
+	    console.log('re-organized');
 	}
 
     });

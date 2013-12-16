@@ -14,8 +14,17 @@ define([
 
 	className: 'grid-item',
 
+	events: {
+	    'click': 'toggleRead'
+	},
+
 	initialize: function(){
 	    this.render();
+	},
+
+	toggleRead: function(){
+	    this.model.set('read', true);
+	    this.$el.fadeOut('slow');
 	},
 
 	render: function(){
