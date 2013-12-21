@@ -77,3 +77,39 @@ architecture example of overload is
 begin
   sum <= a + b;
 end architecture example;
+
+-----------------------------------------
+-- Example #4
+-- import component structure
+-----------------------------------------
+
+entity prime is
+  port (
+);
+end prime;
+
+architecture prime1_arch of prime is
+
+  component INV
+    port(
+      I : in STD_LOGIC;
+      O : out STD_LOGIC;
+      );
+  end component;
+  
+  component AND2
+    port(
+      I0, I1 : in STD_LOGIC;
+      O : out STD_LOGIC;
+      );
+  end component;
+
+begin
+
+  U1 : INV port map ();
+  U2 : INV port map ();
+  U3 : INV port map ();
+  U4 : INV port map ();
+  U5 : INV port map ();
+  
+end prime1_arch;
