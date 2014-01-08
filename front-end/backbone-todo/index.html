@@ -1,0 +1,31 @@
+<!doctype html>
+
+<html lang="en" data-framework="backbonejs">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Backbone Todo</title>
+  </head>
+
+  <body>
+    <section id="todoapp">
+
+      <header>
+	<h1>todos</h1>
+	<input id="new-todo" placehoder="What needs to be done" autofocus>
+      </header>
+
+      <section id="main">
+	<input id="toggle-all" type="checkbox">
+	<label for="toggle-all">Mark as completed</label>
+	<ul id="todo-list"></ul>
+      </section>
+      <footer></footer>
+    </section>
+
+    <script data-main="js/main" 
+	    src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.9/require.min.js"></script>
+
+  </body>
+
+</html>
