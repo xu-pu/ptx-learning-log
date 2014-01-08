@@ -13,16 +13,12 @@ define([
 
 	initialize: function(){
 	    this.category = this.model;
-	    this.streams = this.model.streams;
+	    this.streams = this.category.streams;
 	},
 
 	onRender: function(){
-	    this.tab.show(new MenuTabView({
-		model: this.category,
-	    }));
-	    this.entries.show(new EntriesView({
-		collection: this.streams,
-	    }));
+	    this.tab.show(new MenuTabView({ model: this.category }));
+	    this.entries.show(new EntriesView({ collection: this.streams }));
 	},
 
     });

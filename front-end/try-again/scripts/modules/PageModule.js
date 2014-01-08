@@ -1,41 +1,40 @@
 define([
-    'modules/page/PageController',
-], function (PageController) {
+
+], function () {
 
     'use strict';
 
-    var PageModule = function (module, parent) {
+    var PageModule = function (self, app) {
 	
-	var app = parent;
+	self.region = app.page;
 
-	module.startWithParent = false;
-	module.region = app.page;
-
-	module.on('start', function(options){
+	self.on('start', function(options){
 
 	});
 
-	module.addInitializer(function(options) {
-	    module.state = 'loading';
-	    module.region.show(new LoadingScreen());
-	    module.listenTo(app.vent, 'account:ready', this.onAccountReady);
-	    module.listenTo(app.vent, 'account:fail', this.onAccountFail);
-	    module.listenTo(app.vent, 'index:ready', this.onIndexReady);  
+	self.addInitializer(function(options) {
+	    self.state = 'loading';
+	    self.region.show(new LoadingScreen());
+	    self.listenTo(app.vent, 'account:ready', self.onAccountReady);
+	    self.listenTo(app.vent, 'account:fail', self.onAccountFail);
+	    self.listenTo(app.vent, 'index:ready', self.onIndexReady); 
 	});
 
-	onAccountReady: function(){
-	    if (module.state === 'loading') {
-		module.region.currentView.triggerMethod('account:ready');
-	    };	    
-	},
+	self.onAccountReady = function(){
+	    if (self.state === 'loading') {
+		self.region.currentView.triggerMethod('account:ready');
+	    };
+	};
 
-	onAccountFail: function(){
-	    module.region.show(new WelcomeScreen());
-	},
+	self.onAccountFail = function(){
+	    self.state = 'welcome';
+	    self.region.show(new WelcomeScreen());
+	};
 
-	onContentReady: function(){
-	    module.region.show(new IndexView());
-	},
+	self.onIndexReady = function(){
+	    self.state = 'index';
+	    self.region.show(app.IndexModule.view);
+	};
 
     };
 
