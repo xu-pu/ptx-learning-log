@@ -1,0 +1,39 @@
+.frame {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html {
+    background-color: green;
+    height: 100%;
+}
+
+
+body {
+    background-color: yellow;
+    height: 100%;
+}
+
+
+#container {
+    position: relative;
+    background-color: red;
+    height: 100%;
+}
+
+#sidebar {
+    position: fixed;
+    background-color: blue;
+    height: 100%;
+    width: 20%;
+    left: 0;
+}
+
+#content {
+    position: fixed;
+    background-color: grey;
+    height: 100%;
+    width: 80%;
+    right: 0;
+}
