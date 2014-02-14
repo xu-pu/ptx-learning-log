@@ -18,16 +18,13 @@ define([
     // initialize ContentModule after account is ready
     //=======================================
 
-    app.module('PageModule', PageModule);
-    app.module('ContentModule', ContentModule);
-    app.module('AccountModule', AccountModule);
+    app.module('Account', AccountModule);
+    app.module('Page', PageModule);
+    app.module('Index', IndexModule);
+    app.module('Content', ContentModule);
 
     app.addInitializer(function(){
-	this.PageModule.start();
-	this.AccountModule.start();
     });
-
-    app.controller = new AppController();
 
     return app;
 
