@@ -35,6 +35,14 @@ def image_info():
     print(img.size)
     print(img.dtype)
 
+def split_image():
+    img = read_image()
+    b,g,r = cv2.split(img)
+
+    cv2.imwrite('color-split-r.jpg', r)
+    cv2.imwrite('color-split-g.jpg', g)
+    cv2.imwrite('color-split-b.jpg', b)
+
 
 if __name__ == '__main__':
     pass
